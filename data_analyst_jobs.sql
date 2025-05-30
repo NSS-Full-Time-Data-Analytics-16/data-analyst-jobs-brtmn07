@@ -1,5 +1,5 @@
 -- data-analyst-jobs project
-
+ 
 --1) How many rows are in the data_analyst_jobs table?
 --		ANSWER: 1793
 
@@ -8,7 +8,9 @@ FROM data_analyst_jobs;
 
 
 --2) Write a query to look at just the first 10 rows. What company is associated with the job posting on the 10th row?
---		ANSWER: ExxonMovil
+--		ANSWER: ExxonMobil
+
+
 
 SELECT *
 FROM data_analyst_jobs
@@ -17,7 +19,7 @@ LIMIT 10;
 
 
 --3) How many postings are in Tennessee? How many are there in either Tennessee or Kentucky?
---		ANSWER: TN=21 KY=6
+--		ANSWER: TN=21 KY=6   combined=27
 
 
 SELECT COUNT(location), location
@@ -26,6 +28,9 @@ WHERE location = 'TN' OR location = 'KY'
 GROUP BY location;
 
 
+SELECT COUNT(location)
+FROM data_analyst_jobs
+WHERE location = 'TN';
 
 SELECT COUNT(location)
 FROM data_analyst_jobs
@@ -42,14 +47,12 @@ WHERE location = 'TN' AND star_rating > 4;
 
 
 
-
 --5) How many postings in the dataset have a review count between 500 and 1000?
---	ANSWER: count distinct = 70 (whereas count =151)
+--	ANSWER: count distinct = 70 
 
-SELECT COUNT(review_count)
+SELECT COUNT(DISTINCT(review_count))
 FROM data_analyst_jobs
 WHERE review_count BETWEEN 500 AND 1000;
-
 
 
 SELECT company, review_count
@@ -109,9 +112,9 @@ ORDER BY avg_star_rating DESC;
 
 
 --11) Find all the job titles that contain the word ‘Analyst’. How many different job titles are there? 
---		ANSWER: 774
+--		ANSWER: 1669
 
- SELECT COUNT(DISTINCT title)
+ SELECT COUNT(title)
  FROM data_analyst_jobs
  WHERE title ILIKE '%Analyst%';
 
@@ -135,7 +138,8 @@ ORDER BY avg_star_rating DESC;
 --		Order your results so that the domain with the greatest number of `hard to fill` jobs is at the top. 
 --		Which three industries are in the top 4 on this list? How many jobs have been listed for more than 3 weeks 
 --			for each of the top 4?
-
+--			ANSWER: Internet and software, Banks and Financial Services, Consulting and Business Services, Healthcare.
+--						jobs: 232
 
 
 SELECT *
